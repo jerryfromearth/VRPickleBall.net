@@ -1,0 +1,3 @@
+adb shell pm list packages
+adb shell pm path quest.eleven.forfunlabs
+adb pull /data/app/quest.eleven.forfunlabs-b7zVKSh52q12s7bRXRPZGA==/base.apk ett.apk
