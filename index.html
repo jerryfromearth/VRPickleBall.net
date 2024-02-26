@@ -1,241 +1,289 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Pickleball VR adapters designed by SolidSlime"
+    />
+    <meta name="author" content="SolidSlime" />
+    <meta name="generator" content="Hugo 0.101.0" />
+    <title>Pickleball VR Adapters</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pickleball VR adapters designed by SolidSlime">
-  <meta name="author" content="SolidSlime">
-  <meta name="generator" content="Hugo 0.101.0">
-  <title>Pickleball VR Adapters</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+    <!--discord preview-->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://VRPickleBall.net/" />
+    <meta property="og:title" content="Pickleball VR Adapters" />
+    <meta
+      property="og:description"
+      content="Welcome to VRPickleBall.net! More features will come soon. Meanwhile you can find the adapter for your VR device here."
+    />
+    <meta
+      property="og:image"
+      content="https://VRPickleBall.net/q3-highdef.png"
+    />
 
-  <!--discord preview-->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://VRPickleBall.net/">
-  <meta property="og:title" content="Pickleball VR Adapters">
-  <meta property="og:description" content="Welcome to VRPickleBall.net! More features will come soon. Meanwhile you can find the adapter for your VR device here.">
-  <meta property="og:image" content="https://VRPickleBall.net/qpro-highdef.jpg">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet" />
 
-
-  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
       }
-    }
 
-    .b-example-divider {
-      height: 3rem;
-      background-color: rgba(0, 0, 0, .1);
-      border: solid rgba(0, 0, 0, .15);
-      border-width: 1px 0;
-      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-    }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
 
-    .b-example-vr {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 100vh;
-    }
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: solid rgba(0, 0, 0, 0.15);
+        border-width: 1px 0;
+        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+      }
 
-    .bi {
-      vertical-align: -.125em;
-      fill: currentColor;
-    }
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
 
-    .nav-scroller {
-      position: relative;
-      z-index: 2;
-      height: 2.75rem;
-      overflow-y: hidden;
-    }
+      .bi {
+        vertical-align: -0.125em;
+        fill: currentColor;
+      }
 
-    .nav-scroller .nav {
-      display: flex;
-      flex-wrap: nowrap;
-      padding-bottom: 1rem;
-      margin-top: -1px;
-      overflow-x: auto;
-      text-align: center;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
 
-    @import "compass/css3";
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
 
-    :target {
-      -webkit-animation: target-fade 3s;
-      -moz-animation: target-fade 3s;
-      -o-animation: target-fade 3s;
-      animation: target-fade 3s;
-    }
+      @import "compass/css3";
 
-    /**
+      :target {
+        -webkit-animation: target-fade 3s;
+        -moz-animation: target-fade 3s;
+        -o-animation: target-fade 3s;
+        animation: target-fade 3s;
+      }
+
+      /**
  * Keyframe animation definition
  * 
  * 1. Insert a color of your choice here
  */
 
-    @-webkit-keyframes target-fade {
-      from {
-        background-color: red;
+      @-webkit-keyframes target-fade {
+        from {
+          background-color: red;
+        }
+
+        /* [1] */
+        to {
+          background-color: transparent;
+        }
       }
 
-      /* [1] */
-      to {
-        background-color: transparent;
-      }
-    }
+      @-moz-keyframes target-fade {
+        from {
+          background-color: red;
+        }
 
-    @-moz-keyframes target-fade {
-      from {
-        background-color: red;
-      }
-
-      /* [1] */
-      to {
-        background-color: transparent;
-      }
-    }
-
-    @-o-keyframes target-fade {
-      from {
-        background-color: red;
+        /* [1] */
+        to {
+          background-color: transparent;
+        }
       }
 
-      /* [1] */
-      to {
-        background-color: transparent;
+      @-o-keyframes target-fade {
+        from {
+          background-color: red;
+        }
+
+        /* [1] */
+        to {
+          background-color: transparent;
+        }
       }
-    }
 
-    @keyframes target-fade {
-      from {
-        background-color: red;
+      @keyframes target-fade {
+        from {
+          background-color: red;
+        }
+
+        /* [1] */
+        to {
+          background-color: transparent;
+        }
       }
+    </style>
+  </head>
 
-      /* [1] */
-      to {
-        background-color: transparent;
-      }
-    }
-  </style>
+  <body>
+    <main id="main">
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Pickleball VR Adapters</h1>
+            <p class="lead text-muted">
+              Welcome to VRPickleBall.net! More features will come soon.
+              Meanwhile you can find the adapter for your VR device below.
+            </p>
+            <p id="links">
+              <a
+                href="https://www.etsy.com/shop/FlighterCraftingShop"
+                class="btn btn-primary"
+                >US | Canada</a
+              >
+              <a href="https://reracket.theshop.jp/" class="btn btn-primary"
+                >日本 | 한국</a
+              >
+              <a href="https://ozettadapters.com/" class="btn btn-primary"
+                >Oceanic | South East Asia | India</a
+              >
+              <a href="https://shop.solidslime.net/" class="btn btn-primary"
+                >Elsewhere(e.g. EU)</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
 
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="card-img-top" src="q3.png" alt="SolidSlime Q3" />
 
-</head>
+                <div class="card-body">
+                  <p class="card-text">Device：Oculus Quest 3</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a href="#links" class="btn btn-sm btn-outline-primary"
+                        >Shop</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="card-img-top" src="q2.jpg" alt="SolidSlime Q2" />
 
-<body>
+                <div class="card-body">
+                  <p class="card-text">Device：Oculus Quest 2</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a href="#links" class="btn btn-sm btn-outline-primary"
+                        >Shop</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img
+                  class="card-img-top"
+                  src="qpro.jpg"
+                  alt="SolidSlime Quest Pro"
+                />
 
-  <main id="main">
-    <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">Pickleball VR Adapters</h1>
-          <p class="lead text-muted">Welcome to VRPickleBall.net! More features will come soon. Meanwhile you can find the
-            adapter for your VR device below.</p>
-          <p id="links">
-            <a href="https://www.etsy.com/shop/FlighterCraftingShop" class="btn btn-primary">US | Canada</a>
-            <a href="https://reracket.theshop.jp/" class="btn btn-primary">日本 | 한국</a>
-            <a href="https://ozettadapters.com/" class="btn btn-primary">Oceanic | South East Asia | India</a>
-            <a href="https://shop.solidslime.net/" class="btn btn-primary">Elsewhere(e.g. EU)</a>
-          </p>
+                <div class="card-body">
+                  <p class="card-text">Device：Oculus Quest Pro Controller</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a href="#links" class="btn btn-sm btn-outline-primary"
+                        >Shop</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-sm">
+                <img
+                  class="card-img-top"
+                  src="q1-riftS.jpg"
+                  alt="SolidSlime Quest 1 / rift S"
+                />
+
+                <div class="card-body">
+                  <p class="card-text">Device：Oculus Quest 1 / Rift S</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a href="#links" class="btn btn-sm btn-outline-primary"
+                        >Shop</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </main>
 
-
-    <div class="album py-5 bg-light">
+    <footer class="text-muted py-5">
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
-
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="card-img-top" src="q3.jpg" alt="SolidSlime Q3">
-
-              <div class="card-body">
-                <p class="card-text">Device：Oculus Quest 3</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#links" class="btn btn-sm btn-outline-primary">Shop</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="card-img-top" src="q2.jpg" alt="SolidSlime Q2">
-
-              <div class="card-body">
-                <p class="card-text">Device：Oculus Quest 2</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#links" class="btn btn-sm btn-outline-primary">Shop</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="card-img-top" src="qpro.jpg" alt="SolidSlime Quest Pro">
-
-              <div class="card-body">
-                <p class="card-text">Device：Oculus Quest Pro Controller</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#links" class="btn btn-sm btn-outline-primary">Shop</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="card-img-top" src="q1-riftS.jpg" alt="SolidSlime Quest 1 / rift S">
-
-              <div class="card-body">
-                <p class="card-text">Device：Oculus Quest 1 / Rift S</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="#links" class="btn btn-sm btn-outline-primary">Shop</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p class="float-end mb-1">
+          <a href="#">Back to top</a>
+        </p>
       </div>
-    </div>
+    </footer>
 
-  </main>
-
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-    </div>
-  </footer>
-
-
-  <script src="dist/js/bootstrap.bundle.min.js"></script>
-
-
-</body>
-
+    <script src="dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
