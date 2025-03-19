@@ -8,7 +8,6 @@
       content="Pickleball VR adapters designed by SolidSlime"
     />
     <meta name="author" content="SolidSlime" />
-    <meta name="generator" content="Hugo 0.101.0" />
     <title>Pickleball VR Adapters</title>
     <link
       rel="apple-touch-icon"
@@ -35,294 +34,541 @@
     <meta property="og:title" content="Pickleball VR Adapters" />
     <meta
       property="og:description"
-      content="Welcome to VRPickleBall.net! More features will come soon. Meanwhile you can find the adapter for your VR device here."
+      content="We are a group of enthusiasts who love VR Pickleball/Tennis. We design and manufacture custom adapters for Oculus, Pico, and more devices."
     />
     <meta
       property="og:image"
       content="https://VRPickleBall.net/q3-highdef.png"
     />
 
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="tailwind.min.css" rel="stylesheet" />
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+      function toggleShopLinks(adapterId) {
+        const shopDiv = document.getElementById(`shop-${adapterId}`);
+        const isShopButtonVisible =
+          shopDiv.getAttribute("data-shop-visible") === "true";
 
+        if (isShopButtonVisible) {
+          // Replace the "Shop" button with shop links
+          shopDiv.innerHTML = `
+        <div class="shop-links space-y-2 animate-fade-in">
+          <a href="https://flightercrafting.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">US | Canada</a>
+          <a href="https://shop.solidslime.net/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Europe | United Kingdom</a>
+          <a href="https://reracket.theshop.jp/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">日本 | 한국</a>
+          <a href="https://ozettadapters.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Oceanic | South East Asia | India</a>
+          <a href="https://wedoovr.com.br/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">South America</a>
+          <a href="https://shop389165146.taobao.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">淘宝</a>
+          <a href="https://shop.solidslime.net/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Rest of the world</a>
+          <button onclick="toggleShopLinks('${adapterId}')" class="w-full bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 mt-2">
+            Hide
+          </button>
+        </div>
+      `;
+          shopDiv.setAttribute("data-shop-visible", "false"); // Update the state
+        } else {
+          // Revert back to the "Shop" button
+          shopDiv.innerHTML = `
+        <button onclick="toggleShopLinks('${adapterId}')" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 animate-fade-in">
+          Shop
+        </button>
+      `;
+          shopDiv.setAttribute("data-shop-visible", "true"); // Update the state
+        }
+      }
+    </script>
+
+    <!-- CSS Animations -->
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, 0.1);
-        border: solid rgba(0, 0, 0, 0.15);
-        border-width: 1px 0;
-        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
-          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -0.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      @import "compass/css3";
-
-      :target {
-        -webkit-animation: target-fade 3s;
-        -moz-animation: target-fade 3s;
-        -o-animation: target-fade 3s;
-        animation: target-fade 3s;
-      }
-
-      /**
- * Keyframe animation definition
- * 
- * 1. Insert a color of your choice here
- */
-
-      @-webkit-keyframes target-fade {
+      @keyframes fadeIn {
         from {
-          background-color: red;
+          opacity: 0;
         }
-
-        /* [1] */
         to {
-          background-color: transparent;
+          opacity: 1;
         }
       }
 
-      @-moz-keyframes target-fade {
-        from {
-          background-color: red;
-        }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+    </style>
 
-        /* [1] */
-        to {
-          background-color: transparent;
+    <script>
+      function toggleReview(button) {
+        const reviewContent =
+          button.previousElementSibling.previousElementSibling;
+        const reviewText = reviewContent.querySelector(".review-text");
+        const reviewMore = reviewContent.querySelector(".review-more");
+
+        if (reviewMore.classList.contains("hidden")) {
+          // Expand the review
+          reviewMore.classList.remove("hidden");
+          reviewContent.classList.remove("line-clamp-3"); // Remove line clamp
+          button.textContent = "Read less";
+        } else {
+          // Collapse the review
+          reviewMore.classList.add("hidden");
+          reviewContent.classList.add("line-clamp-3"); // Reapply line clamp
+          button.textContent = "Read more";
         }
       }
+    </script>
 
-      @-o-keyframes target-fade {
-        from {
-          background-color: red;
-        }
-
-        /* [1] */
-        to {
-          background-color: transparent;
-        }
+    <!-- CSS for Truncated Text -->
+    <style>
+      .review-content p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Show 3 lines by default */
+        -webkit-box-orient: vertical;
       }
 
-      @keyframes target-fade {
-        from {
-          background-color: red;
-        }
+      .review-more.hidden {
+        display: none;
+      }
 
-        /* [1] */
-        to {
-          background-color: transparent;
-        }
+      /* Remove line clamp when review is expanded */
+      .review-content p:not(.line-clamp-3) {
+        -webkit-line-clamp: unset;
       }
     </style>
   </head>
 
-  <body>
-    <main id="main">
-      <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">VR Pickleball Adapters</h1>
-            <p class="lead text-muted">
-              Welcome to VRPingPong.net! We are a group of enthuiasts who love VR Pickleball/Tennis. 
-              We design and manufacture custom adapters for Oculus, Pico and more devices.
-            </p>
-            <p class="lead text-muted">
-              <h4>Players love using the adapters to play these games:</h4>
-              <ul class="list-unstyled">
-                <li><a href="https://11pball.com/">Eleven Pickleball</a></li>
-                <li><a href="https://pickleballone.app/">Pickleball One</a></li>
-                <li><a href="https://www.meta.com/experiences/6022041731249559/">Racket Club</a></li>
-                <li><a href="https://www.oculus.com/experiences/quest/4226087210826343/">Pickleball</a></li>
-              </ul>
-            </p>
-            <p class="lead text-muted">
-              <h4>We have local partners all around the globe:</h4>
-            </p>
-            <p id="links">
-              <a
-                href="https://flightercrafting.com/"
-                class="btn btn-primary mt-2"
-                >US | Canada</a
-              >
-              <a
-                href="https://shop.solidslime.net/"
-                class="btn btn-primary mt-2"
-                >Europe | United Kingdom</a
-              >
-              <a
-                href="https://reracket.theshop.jp/"
-                class="btn btn-primary mt-2"
-                >日本 | 한국</a
-              >
-              <a href="https://ozettadapters.com/" class="btn btn-primary mt-2"
-                >Oceanic | South East Asia | India</a
-              >
-              <a href="https://wedoovr.com.br/" class="btn btn-primary mt-2"
-                >South America</a
-              >
-              <a
-                href="https://shop389165146.taobao.com/"
-                class="btn btn-primary mt-2"
-                >淘宝</a
-              >
-              <a
-                href="https://shop.solidslime.net/"
-                class="btn btn-primary mt-2"
-                >Rest of the world</a
-              >
-            </p>
+  <body class="bg-gray-50">
+    <main id="main" class="max-w-7xl mx-auto p-4">
+      <!-- Hero Section -->
+      <section class="text-center py-12 w-full">
+        <div class="max-w-7xl mx-auto px-4">
+          <h1 class="text-5xl font-bold text-gray-800">
+            VR Pickleball Adapters
+            <span class="text-base font-light text-gray-600"
+              >by SolidSlime</span
+            >
+          </h1>
+          <p
+            class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto p-6 bg-white rounded-lg border border-gray-200 shadow-sm"
+          >
+            Welcome! We are a group of enthusiasts who love VR
+            Pickleball/Tennis. We design and manufacture custom adapters for
+            Oculus, Pico, and more devices.
+          </p>
+        </div>
+      </section>
+
+      <!-- VR Adapters Section -->
+      <section class="py-12 bg-white">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+          VR Adapters
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4"
+        >
+          <!-- Oculus Quest 3 Adapter -->
+          <div
+            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="q3.png"
+              alt="SolidSlime Q3"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg text-gray-800 flex-grow">
+                For: Oculus Quest 3, Oculus Quest 3S
+              </p>
+              <div id="shop-q3" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q3')"
+                  class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 2 Adapter -->
+          <div
+            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="q2.jpg"
+              alt="SolidSlime Q2"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg text-gray-800 flex-grow">For: Oculus Quest 2</p>
+              <div id="shop-q2" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q2')"
+                  class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest Pro Adapter -->
+          <div
+            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="qpro.jpg"
+              alt="SolidSlime Quest Pro"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg text-gray-800 flex-grow">
+                For: Oculus Quest Pro Controller
+              </p>
+              <div id="shop-qpro" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('qpro')"
+                  class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 1 / Rift S Adapter -->
+          <div
+            class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="q1-riftS.jpg"
+              alt="SolidSlime Quest 1 / rift S"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg text-gray-800 flex-grow">
+                For: Oculus Quest 1 / Rift S
+              </p>
+              <div id="shop-q1" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q1')"
+                  class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-all duration-300"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
-            <div class="col">
-              <div class="card shadow-sm">
-                <img class="card-img-top" src="q3.png" alt="SolidSlime Q3" />
-
-                <div class="card-body">
-                  <p class="card-text">Device: Oculus Quest 3, Oculus Quest 3S</p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <a href="#links" class="btn btn-sm btn-outline-primary"
-                        >Shop</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <!-- Reviews Section -->
+      <section class="py-12 bg-gray-50">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+          Customer Reviews
+        </h2>
+        <div class="max-w-4xl mx-auto px-4 space-y-6">
+          <!-- Review 1 (Odd - Left Aligned) -->
+          <div class="bg-white p-6 rounded-lg shadow-md w-3/4">
+            <div class="review-content">
+              <p class="text-gray-700 italic">
+                <span class="review-text"
+                  >I’m an avid racket club player and this is the third adapter
+                  I’ve tried. The other two were solidslime’s v1 pickleball and
+                  virtual printality’s generic adapter. This adapter has both
+                  better tracking and weight balance than the previous
+                  two.</span
+                >
+                <span class="review-more hidden">
+                  For reference, my game style typically has me bringing the
+                  racket into occlusion areas for quest 3 tracking. I also swing
+                  the racket fast with high velocity as I come from a tennis
+                  background. My forehand topspin shots have a fairly big arc to
+                  them. I found this adapter had very minimal tracking issues.
+                  Basically, the only tracking issues I had were the ones that
+                  would occur anyway with the Quest 3 holding the controller
+                  direct in my hand. In terms of weight and balance I found this
+                  adapter to the best I’ve tried so far. It feels VERY similar
+                  to a real pickleball racket and not too head-heavy as can
+                  sometimes happen with these controller adapters. This is
+                  important because I find, for Racket Club at least, you
+                  sometimes require more finesse movements with certain shots
+                  that tend to overlap into the table tennis world. Because the
+                  weight distribution feels correct it doesn’t feel like I’m
+                  destroying my wrist or muscling through these type of shots.
+                  Highly recommended if you are into Racket Club or other
+                  similar VR racket sports!</span
+                >
+              </p>
             </div>
-            <div class="col">
-              <div class="card shadow-sm">
-                <img class="card-img-top" src="q2.jpg" alt="SolidSlime Q2" />
-
-                <div class="card-body">
-                  <p class="card-text">Device: Oculus Quest 2</p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <a href="#links" class="btn btn-sm btn-outline-primary"
-                        >Shop</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm text-gray-500">
+              — Turtle Canada
             </div>
-            <div class="col">
-              <div class="card shadow-sm">
-                <img
-                  class="card-img-top"
-                  src="qpro.jpg"
-                  alt="SolidSlime Quest Pro"
-                />
+            <button
+              class="text-blue-600 hover:text-blue-700 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
 
-                <div class="card-body">
-                  <p class="card-text">Device: Oculus Quest Pro Controller</p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <a href="#links" class="btn btn-sm btn-outline-primary"
-                        >Shop</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <!-- Review 2 (Even - Right Aligned) -->
+          <div class="bg-white p-6 rounded-lg shadow-md w-3/4 ml-auto">
+            <div class="review-content">
+              <p class="text-gray-700 italic">
+                <span class="review-text"
+                  >I got mine yesterday. It's the bomb!!! The weight of it and
+                  touching the paddle with my other hand helps so much with
+                  making the game feel realistic. I'm actually bouncing on the
+                  balls of my feet anticipating the next shot. I've never felt
+                  so immersed in the game before. It makes it so much easier
+                  hitting dinks and controlling the ball. So well balanced for
+                  pickleball. I also play MPT and it has made a game changer of
+                  that game also. So much better control. I highly recommend
+                  getting it.</span
+                >
+                <span class="review-more hidden">
+                  Disclaimer, I don't play in real life either sports and I was
+                  only using controller beforehand.</span
+                >
+              </p>
             </div>
-            <div class="col">
-              <div class="card shadow-sm">
-                <img
-                  class="card-img-top"
-                  src="q1-riftS.jpg"
-                  alt="SolidSlime Quest 1 / rift S"
-                />
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm text-gray-500">
+              — EarlieBirdieGirl
+            </div>
+            <button
+              class="text-blue-600 hover:text-blue-700 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+        </div>
+      </section>
 
-                <div class="card-body">
-                  <p class="card-text">Device: Oculus Quest 1 / Rift S</p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <a href="#links" class="btn btn-sm btn-outline-primary"
-                        >Shop</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <!-- Games Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+          Popular Games
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4"
+        >
+          <!-- Eleven Pickleball -->
+          <a
+            href="https://11pball.com/"
+            class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="elevenpickleball.jpg"
+              alt="Eleven Pickleball"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">
+                Eleven Pickleball
+              </h3>
+            </div>
+          </a>
+
+          <!-- Pickleball One -->
+          <a
+            href="https://pickleballone.app/"
+            class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="pickleballone.jpg"
+              alt="Pickleball One"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Pickleball One</h3>
+            </div>
+          </a>
+
+          <!-- Racket Club -->
+          <a
+            href="https://www.meta.com/experiences/6022041731249559/"
+            class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="racketclub.jpg"
+              alt="Racket Club"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Racket Club</h3>
+            </div>
+          </a>
+
+          <!-- Pickleball -->
+          <a
+            href="https://www.oculus.com/experiences/quest/4226087210826343/"
+            class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="pickleball.jpg"
+              alt="Pickleball"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Pickleball</h3>
+            </div>
+          </a>
+
+          <!-- First Person Tennis -->
+          <a
+            href="https://www.meta.com/experiences/first-person-tennis-the-real-tennis-simulator/6119989094742166/"
+            class="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="firstpersontennis.jpg"
+              alt="First Person Tennis"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">
+                First Person Tennis
+              </h3>
+            </div>
+          </a>
+
+          <!-- And More Card -->
+          <div
+            class="relative h-48 rounded-lg overflow-hidden shadow-md bg-gray-100 flex items-center justify-center p-6"
+          >
+            <div class="text-center">
+              <h3 class="text-2xl font-semibold text-gray-600 mx-auto max-w-md">
+                And any game that supports custom positioning of the
+                racket/paddle/club
+              </h3>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </section>
 
-    <footer class="text-muted py-5">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <p class="lead text-muted">
-            If you are also interested in table tennis,
-            check out the
-            <a href="https://vrpingpong.net">Table Tennis Adapters</a> that we
-            are making!
-          </p>
+      <!-- Partners Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+          Global Partners
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="https://flightercrafting.com/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">US | Canada</h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">
+              Europe | United Kingdom
+            </h3>
+          </a>
+          <a
+            href="https://reracket.theshop.jp/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">日本 | 한국</h3>
+          </a>
+          <a
+            href="https://ozettadapters.com/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">
+              Oceanic | South East Asia | India
+            </h3>
+          </a>
+          <a
+            href="https://wedoovr.com.br/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">South America</h3>
+          </a>
+          <a
+            href="https://shop389165146.taobao.com/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">淘宝</h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold text-blue-600">
+              Rest of the world
+            </h3>
+          </a>
         </div>
-      </div>
-      <div class="container">
-        <p class="float-end mb-1">
-          <a href="#">Back to top</a>
-        </p>
-      </div>
-    </footer>
+      </section>
 
-    <script src="dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Footer Section -->
+      <footer class="text-center py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+          <!-- Footer Content -->
+          <div class="space-y-4">
+            <p class="text-lg text-gray-600">🏓</p>
+            <p class="text-lg text-gray-600">
+              If you are also interested in table tennis, check out the
+              <a
+                class="text-blue-600 hover:text-blue-700 transition-colors"
+                href="https://vrpingpong.net"
+                >Table Tennis Adapters</a
+              >
+              that we are making!
+            </p>
+            <p class="text-gray-500">
+              &copy; 2023 SolidSlime. All rights reserved.
+            </p>
+          </div>
+
+          <!-- Back to Top Button -->
+          <div class="mt-6">
+            <a
+              href="#"
+              class="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              <span>Back to top</span>
+              <svg
+                class="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </main>
   </body>
 </html>
