@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <!-- Default to dark mode for table tennis -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="VR table tennis and pickleball adapters by SolidSlime"
+    />
+    <meta name="author" content="SolidSlime" />
+    <title>VR Adapters by SolidSlime</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--discord preview-->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://VRPingPong.net/" />
+    <meta property="og:title" content="VR Adapters by SolidSlime" />
+    <meta
+      property="og:description"
+      content="We are a group of enthusiasts who love VR Table Tennis and Pickleball. We design and make top-quality adapters for Oculus, Pico, and more devices. Check what the top players say about our adapters!"
+    />
+    <meta
+      property="og:image"
+      content="https://VRPingPong.net/tabletennis/Q3-highdef.png"
+    />
+
+    <link href="tailwind.min.css" rel="stylesheet" />
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+      function toggleShopLinks(adapterId) {
+        const shopDiv = document.getElementById(`shop-${adapterId}`);
+        const isShopButtonVisible =
+          shopDiv.getAttribute("data-shop-visible") === "true";
+
+        if (isShopButtonVisible) {
+          // Replace the "Shop" button with shop links
+          shopDiv.innerHTML = `
+        <div class="shop-links space-y-2 animate-fade-in">
+          <a href="https://flightercrafting.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">US | Canada</a>
+          <a href="https://shop.solidslime.net/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Europe | United Kingdom</a>
+          <a href="https://reracket.theshop.jp/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">日本 | 한국</a>
+          <a href="https://ozettadapters.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Oceanic | South East Asia | India</a>
+          <a href="https://wedoovr.com.br/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">South America</a>
+          <a href="https://shop389165146.taobao.com/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">淘宝</a>
+          <a href="https://shop.solidslime.net/" class="block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Rest of the world</a>
+          <button onclick="toggleShopLinks('${adapterId}')" class="w-full bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 mt-2">
+            Hide
+          </button>
+        </div>
+      `;
+          shopDiv.setAttribute("data-shop-visible", "false"); // Update the state
+        } else {
+          // Revert back to the "Shop" button
+          shopDiv.innerHTML = `
+        <button onclick="toggleShopLinks('${adapterId}')" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 animate-fade-in">
+          Shop
+        </button>
+      `;
+          shopDiv.setAttribute("data-shop-visible", "true"); // Update the state
+        }
+      }
+    </script>
+
+    <!-- CSS Animations -->
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+      }
+    </style>
+
+    <script>
+      function toggleReview(button) {
+        const reviewContent =
+          button.previousElementSibling.previousElementSibling;
+        const reviewText = reviewContent.querySelector(".review-text");
+        const reviewMore = reviewContent.querySelector(".review-more");
+
+        if (reviewMore.classList.contains("hidden")) {
+          // Expand the review
+          reviewMore.classList.remove("hidden");
+          reviewContent.classList.remove("line-clamp-3"); // Remove line clamp
+          button.textContent = "Read less";
+        } else {
+          // Collapse the review
+          reviewMore.classList.add("hidden");
+          reviewContent.classList.add("line-clamp-3"); // Reapply line clamp
+          button.textContent = "Read more";
+        }
+      }
+    </script>
+
+    <!-- CSS for Truncated Text -->
+    <style>
+      .review-content p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Show 3 lines by default */
+        -webkit-box-orient: vertical;
+      }
+
+      .review-more.hidden {
+        display: none;
+      }
+
+      /* Remove line clamp when review is expanded */
+      .review-content p:not(.line-clamp-3) {
+        -webkit-line-clamp: unset;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-900 text-gray-200">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700">
+      <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex space-x-4">
+          <a
+            href="tabletennis.html"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+            >🏓 Table Tennis</a
+          >
+          <a
+            href="pickleball.html"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors flex items-center"
+            ><img
+              src="pickleball.png"
+              alt="Pickleball"
+              class="w-6 h-6 mr-2"
+            />Pickleball</a
+          >
+          <a
+            href="badminton.html"
+            class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors flex items-center"
+            >🏸 Badminton</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4">
+      <!-- Hero Section -->
+      <section class="text-center py-12 w-full">
+        <div class="max-w-7xl mx-auto px-4">
+          <h1 class="text-5xl font-bold dark:text-gray-100">
+            VR Table Tennis Adapters
+            <span class="text-base font-light dark:text-gray-400"
+              >by SolidSlime</span
+            >
+          </h1>
+          <p
+            class="mt-4 text-xl dark:text-gray-300 max-w-2xl mx-auto p-6 bg-gray-800 rounded-lg dark:border-gray-700 shadow-sm"
+          >
+            We are a group of enthusiasts who love VR Table Tennis. We design
+            and make top-quality adapters for Oculus, Pico, and more devices.
+            Check what the top players say about our adapters!
+          </p>
+        </div>
+      </section>
+
+      <!-- VR Adapters Section -->
+      <section class="py-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4"
+        >
+          <!-- Oculus Quest 3 Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Q3.jpg"
+              alt="SolidSlime Q3"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 3, Oculus Quest 3S
+              </p>
+              <div id="shop-q3" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q3')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BWB Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="BWB Q3.jpg"
+              alt="BWB Q3"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 3, Oculus Quest 3S (Penhold)
+              </p>
+              <div id="shop-BWB" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('BWB')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 2 Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Q2.jpg"
+              alt="SolidSlime Q2"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 2
+              </p>
+              <div id="shop-q2" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q2')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pico4 Ultra Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Pico4 Ultra.jpg"
+              alt="SolidSlime Pico4 Ultra"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Pico4 Ultra
+              </p>
+              <div id="shop-pico4ultra" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('pico4ultra')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pico4 Ultra Penhold Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Pico4 Ultra Penhold.jpg"
+              alt="SolidSlime Pico4 Ultra Penhold"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Pico4 Ultra (Penhold)
+              </p>
+              <div
+                id="shop-pico4ultrapenhold"
+                class="mt-4"
+                data-shop-visible="true"
+              >
+                <button
+                  onclick="toggleShopLinks('pico4ultrapenhold')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pico4 Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SS115 Pro Pico4.jpg"
+              alt="SS115 Pico4"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">For: Pico4</p>
+              <div id="shop-pico4" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('pico4')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest Pro Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Quest Pro.jpg"
+              alt="SolidSlime Quest Pro"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest Pro Controller
+              </p>
+              <div id="shop-qpro" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('qpro')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 1 / Rift S Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="SolidSlime Q1.jpg"
+              alt="SolidSlime Quest 1 / rift S"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 1 / Rift S
+              </p>
+              <div id="shop-q1" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q1')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pico3 Adapter -->
+          <div class="bg-gray-800 rounded-lg flex flex-col">
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="ss115.jpg"
+              alt="ss115"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Pico Neo 3
+              </p>
+              <div id="shop-pico3" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('pico3')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews Section -->
+      <section class="py-12">
+        <!-- Body already handles this, but explicit is fine -->
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Customer Reviews
+        </h2>
+        <div class="max-w-4xl mx-auto px-4 space-y-6">
+          <!-- Review 1 (Odd - Left Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text">
+                  This adapter is simply amazing, feels like a real paddle now.
+                  It's light weight and super comfortable.</span
+                >
+                <span class="review-more hidden"
+                  >My Pico 4 experience is way better and I'm having lots of
+                  fun. Highly recommended!!!</span
+                >
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — 11BRA_Wlad (Elo: 3610)
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+
+          <!-- Review 2 (Even - Right Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4 ml-auto">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text"
+                  >Heyy, I'm Natping from ETT and I have been playing with the
+                  SolidSlime adapter for almost a year. Honestly, for me, this
+                  is the best Quest 2 adapter I have tested. The balance between
+                  the weight of the controller and the adapter is perfect, and
+                  my feeling in game has never been better than with this
+                  adapter.</span
+                >
+                <span class="review-more hidden">
+                  If I can just say the only downside of the adapter, it's that
+                  when you serve, the controller touches your fingers a bit and
+                  is a bit uncomfortable. But except that, if you are looking
+                  for the best adapter for Quest 2 I can only recommend this
+                  one. Thanks to SolidSlime for his kindness and responsiveness
+                  (the product was sent very quickly). And see you in the game
+                  !</span
+                >
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — Natping (Elo: 3767)
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+
+          <!-- Review 3 (Odd - Left Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text">
+                  My solidslime adapter arrived! It is spectacular. I win almost
+                  200 points in a single day thanks to her. Thank you so much
+                  !</span
+                >
+                <span class="review-more hidden"></span>
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — Claudio
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              style="display: none"
+            >
+              Read more
+            </button>
+          </div>
+
+          <!-- Review 4 (Even - Right Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4 ml-auto">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text"
+                  >The SolidSlime ETT adapter is the best adapter by far. I play
+                  tabletennis IRL as well and in VR i previously used the
+                  Sanlaki, but the solidslime is better in a couple of
+                  ways:</span
+                >
+                <span class="review-more hidden">
+                  – balance of your paddle as the weight distribution is a lot
+                  better and natural. Both left/right balance as top/down
+                  balance on your paddle – tracking of the controller is better,
+                  which most people will notice by an improved Forehand. –
+                  haptic feedback has improve drasticly as the controller is
+                  very firmly connected to the adapter. This will make you
+                  'feel' the ball contact better. You also wont feel any wiggle
+                  during high power strokes – Solidslime adapter development is
+                  a continuous activity by the creator. This ensures that you
+                  always will get the latest and greatest adapter. Also for new
+                  controllers, Solidslime is very quick to develop those
+                  adapters and also really listens to feedback – Solidslime
+                  adapter settings are either included in ETT or shared
+                  separately to ensure you get the best alignment in game. – the
+                  adapter is pretty sturdy. It wont break instantly if you
+                  happen to hit that wall/closet etc in your room whilest you
+                  enthousiasticly dive for that ball 🙂</span
+                >
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — Marcel
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Popular Games
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4"
+        >
+          <!-- Eleven Table Tennis -->
+          <a
+            href="https://elevenvr.com/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="elevenvr.jpg"
+              alt="Eleven Table Tennis"
+              class="w-full h-full object-cover opacity-80"
+            />
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60 hover:dark:bg-opacity-75 transition-opacity duration-300"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white text-center">
+                Eleven Table Tennis
+              </h3>
+            </div>
+          </a>
+
+          <!-- T3S -->
+          <a
+            href="https://linktr.ee/siedan"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="t3s.jpg"
+              alt="Table Tennis Training Simulator"
+              class="w-full h-full object-cover opacity-80"
+            />
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60 hover:dark:bg-opacity-75 transition-opacity duration-300"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white text-center">
+                Table Tennis Training Simulator
+              </h3>
+            </div>
+          </a>
+
+          <!-- EasyPong -->
+          <a
+            href="https://www.meta.com/en-gb/experiences/easypong/7951375894910515/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="easypong.jpg"
+              alt="EasyPong"
+              class="w-full h-full object-cover opacity-80"
+            />
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60 hover:dark:bg-opacity-75 transition-opacity duration-300"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white text-center">
+                EasyPong
+              </h3>
+            </div>
+          </a>
+
+          <!-- 10 billion -->
+          <a
+            href="https://www.meta.com/experiences/tenbillion-table-tennis-ping-pong-vr/7074450812583727/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="10btt.jpg"
+              alt="Tenbillion Table Tennis"
+              class="w-full h-full object-cover opacity-80"
+            />
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60 hover:dark:bg-opacity-75 transition-opacity duration-300"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white text-center">
+                Tenbillion Table Tennis
+              </h3>
+            </div>
+          </a>
+
+          <!-- And More Card -->
+          <div
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3
+                class="text-2xl font-semibold text-white mx-auto max-w-md text-center"
+              >
+                And any game that supports custom positioning of the racket
+              </h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partners Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Global Partners
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="https://flightercrafting.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              US | Canada
+            </h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Europe | United Kingdom
+            </h3>
+          </a>
+          <a
+            href="https://reracket.theshop.jp/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              日本 | 한국
+            </h3>
+          </a>
+          <a
+            href="https://ozettadapters.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Oceanic | South East Asia | India
+            </h3>
+          </a>
+          <a
+            href="https://wedoovr.com.br/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              South America
+            </h3>
+          </a>
+          <a
+            href="https://shop389165146.taobao.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              淘宝
+            </h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Rest of the world
+            </h3>
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer Section -->
+      <footer class="text-center py-12">
+        <div class="max-w-7xl mx-auto px-4">
+          <!-- Footer Content -->
+          <div class="space-y-4">
+            <p class="dark:text-gray-500">
+              &copy; 2023 SolidSlime. All rights reserved.
+            </p>
+            <p class="dark:text-gray-500">
+              Also check out our
+              <a
+                class="text-blue-400 hover:text-blue-500"
+                href="pickleball.html"
+                >Pickleball Adapters</a
+              >
+            </p>
+          </div>
+
+          <!-- Back to Top Button -->
+          <div class="mt-6">
+            <a
+              href="#"
+              class="inline-flex items-center dark:text-blue-400 dark:hover:text-blue-500 transition-colors"
+            >
+              <span>Back to top</span>
+              <svg
+                class="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Pickleball Content -->
+    <main id="pickleball" class="max-w-7xl mx-auto p-4" style="display: none">
+      <!-- Hero Section -->
+      <section class="text-center py-12 w-full">
+        <div class="max-w-7xl mx-auto px-4">
+          <h1 class="text-5xl font-bold dark:text-gray-100">
+            VR Pickleball Adapters
+            <span class="text-base font-light dark:text-gray-400"
+              >by SolidSlime</span
+            >
+          </h1>
+          <p
+            class="mt-4 text-xl dark:text-gray-300 max-w-2xl mx-auto p-6 bg-gray-800 rounded-lg dark:border-gray-700 shadow-sm"
+          >
+            Welcome! We are a group of enthusiasts who love VR
+            Pickleball/Tennis. We design and manufacture custom adapters for
+            Oculus, Pico, and more devices.
+          </p>
+        </div>
+      </section>
+
+      <!-- VR Adapters Section -->
+      <section class="py-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4"
+        >
+          <!-- Oculus Quest 3 Adapter -->
+          <div
+            class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="vrpickleball.net/q3.png"
+              alt="SolidSlime Q3"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 3, Oculus Quest 3S
+              </p>
+              <div id="shop-q3-pickle" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q3-pickle')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 2 Adapter -->
+          <div
+            class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="vrpickleball.net/q2.jpg"
+              alt="SolidSlime Q2"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 2
+              </p>
+              <div id="shop-q2-pickle" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q2-pickle')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest Pro Adapter -->
+          <div
+            class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="vrpickleball.net/qpro.jpg"
+              alt="SolidSlime Quest Pro"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest Pro Controller
+              </p>
+              <div id="shop-qpro-pickle" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('qpro-pickle')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oculus Quest 1 / Rift S Adapter -->
+          <div
+            class="bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col"
+          >
+            <img
+              class="w-full aspect-[3/4] object-cover rounded-t-lg"
+              src="vrpickleball.net/q1-riftS.jpg"
+              alt="SolidSlime Quest 1 / rift S"
+            />
+            <div class="p-6 flex flex-col flex-grow">
+              <p class="text-lg dark:text-gray-200 flex-grow">
+                For: Oculus Quest 1 / Rift S
+              </p>
+              <div id="shop-q1-pickle" class="mt-4" data-shop-visible="true">
+                <button
+                  onclick="toggleShopLinks('q1-pickle')"
+                  class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Customer Reviews
+        </h2>
+        <div class="max-w-4xl mx-auto px-4 space-y-6">
+          <!-- Review 1 (Odd - Left Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text"
+                  >I'm an avid racket club player and this is the third adapter
+                  I've tried. The other two were solidslime's v1 pickleball and
+                  virtual printality's generic adapter. This adapter has both
+                  better tracking and weight balance than the previous
+                  two.</span
+                >
+                <span class="review-more hidden">
+                  For reference, my game style typically has me bringing the
+                  racket into occlusion areas for quest 3 tracking. I also swing
+                  the racket fast with high velocity as I come from a tennis
+                  background. I found this adapter had very minimal tracking
+                  issues. Basically, the only tracking issues I had were the
+                  ones that would occur anyway with the Quest 3 holding the
+                  controller direct in my hand. In terms of weight and balance I
+                  found this adapter to the best I've tried so far. It feels
+                  VERY similar to a real pickleball racket and not too
+                  head-heavy as can sometimes happen with these controller
+                  adapters. This is important because I find, for Racket Club at
+                  least, you sometimes require more finesse movements with
+                  certain shots that tend to overlap into the table tennis
+                  world. Because the weight distribution feels correct it
+                  doesn't feel like I'm destroying my wrist or muscling through
+                  these type of shots. Highly recommended if you are into Racket
+                  Club or other similar VR racket sports!</span
+                >
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — Turtle Canada
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+
+          <!-- Review 2 (Even - Right Aligned) -->
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md w-3/4 ml-auto">
+            <div class="review-content">
+              <p class="dark:text-gray-300 italic">
+                <span class="review-text"
+                  >I got mine yesterday. It's the bomb!!! The weight of it and
+                  touching the paddle with my other hand helps so much with
+                  making the game feel realistic. I'm actually bouncing on the
+                  balls of my feet anticipating the next shot. I've never felt
+                  so immersed in the game before. It makes it so much easier
+                  hitting dinks and controlling the ball. So well balanced for
+                  pickleball. I also play MPT and it has made a game changer of
+                  that game also. So much better control. I highly recommend
+                  getting it.</span
+                >
+                <span class="review-more hidden">
+                  Disclaimer, I don't play in real life either sports and I was
+                  only using controller beforehand.</span
+                >
+              </p>
+            </div>
+            <!-- Author Field -->
+            <div class="mt-4 text-right text-sm dark:text-gray-400">
+              — EarlieBirdieGirl
+            </div>
+            <button
+              class="dark:text-blue-400 dark:hover:text-blue-500 mt-2 focus:outline-none"
+              onclick="toggleReview(this)"
+            >
+              Read more
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Popular Games
+        </h2>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4"
+        >
+          <!-- Eleven Pickleball -->
+          <a
+            href="https://11pball.com/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="vrpickleball.net/elevenpickleball.jpg"
+              alt="Eleven Pickleball"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">
+                Eleven Pickleball
+              </h3>
+            </div>
+          </a>
+
+          <!-- Pickleball One -->
+          <a
+            href="https://pickleballone.app/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="vrpickleball.net/pickleballone.jpg"
+              alt="Pickleball One"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Pickleball One</h3>
+            </div>
+          </a>
+
+          <!-- Racket Club -->
+          <a
+            href="https://www.meta.com/experiences/6022041731249559/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="vrpickleball.net/racketclub.jpg"
+              alt="Racket Club"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Racket Club</h3>
+            </div>
+          </a>
+
+          <!-- Pickleball -->
+          <a
+            href="https://www.oculus.com/experiences/quest/4226087210826343/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="vrpickleball.net/pickleball.jpg"
+              alt="Pickleball"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">Pickleball</h3>
+            </div>
+          </a>
+
+          <!-- First Person Tennis -->
+          <a
+            href="https://www.meta.com/experiences/first-person-tennis-the-real-tennis-simulator/6119989094742166/"
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Background Image -->
+            <img
+              src="vrpickleball.net/firstpersontennis.jpg"
+              alt="First Person Tennis"
+              class="w-full h-full object-cover opacity-30"
+            />
+            <!-- Text Background Overlay -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3 class="text-2xl font-semibold text-white">
+                First Person Tennis
+              </h3>
+            </div>
+          </a>
+          <div
+            class="relative h-48 rounded-lg overflow-hidden hover:bg-blue-600 hover:shadow-lg transition-shadow"
+          >
+            <!-- Text Background Overlay -->
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-60"
+            ></div>
+            <!-- Text Container -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <h3
+                class="text-2xl font-semibold text-white mx-auto max-w-md text-center"
+              >
+                And any game that supports custom positioning of the
+                racket/paddle/club
+              </h3>
+            </div>
+          </div>
+          <!-- And More Card -->
+        </div>
+      </section>
+
+      <!-- Partners Section -->
+      <section class="py-12">
+        <h2 class="text-3xl font-bold text-center dark:text-gray-100 mb-8">
+          Global Partners
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a
+            href="https://flightercrafting.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              US | Canada
+            </h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Europe | United Kingdom
+            </h3>
+          </a>
+          <a
+            href="https://reracket.theshop.jp/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              日本 | 한국
+            </h3>
+          </a>
+          <a
+            href="https://ozettadapters.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Oceanic | South East Asia | India
+            </h3>
+          </a>
+          <a
+            href="https://wedoovr.com.br/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              South America
+            </h3>
+          </a>
+          <a
+            href="https://shop389165146.taobao.com/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              淘宝
+            </h3>
+          </a>
+          <a
+            href="https://shop.solidslime.net/"
+            class="bg-blue-600 p-6 rounded-lg hover:bg-blue-800 hover:shadow-lg transition-shadow"
+          >
+            <h3
+              class="text-xl font-semibold dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
+            >
+              Rest of the world
+            </h3>
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer Section -->
+      <footer class="text-center py-12">
+        <div class="max-w-7xl mx-auto px-4">
+          <!-- Footer Content -->
+          <div class="space-y-4">
+            <p class="text-lg text-gray-600">🏓</p>
+            <p class="text-lg text-gray-600">
+              If you are also interested in table tennis, check out the
+              <a
+                class="text-blue-600 hover:text-blue-700 transition-colors"
+                href="https://vrpingpong.net"
+                >Table Tennis Adapters</a
+              >
+              that we are making!
+            </p>
+            <p class="text-gray-500">
+              &copy; 2023 SolidSlime. All rights reserved.
+            </p>
+          </div>
+
+          <!-- Back to Top Button -->
+          <div class="mt-6">
+            <a
+              href="#"
+              class="inline-flex items-center dark:text-blue-400 dark:hover:text-blue-500 transition-colors"
+            >
+              <span>Back to top</span>
+              <svg
+                class="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
